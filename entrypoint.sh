@@ -24,6 +24,12 @@ then
   echo "$PLUGINS" | tr "," "\n" | parallel -I% --jobs 5 "${JMETER_HOME}/bin/PluginsManagerCMD.sh install %"
 fi
 
+# Pass JVM arguments from environment variables if set
+if [ -n "$JMETER_JVM_ARGS" ];
+then
+    export JVM_ARGS="$JMETER_JVM_ARGS"
+fi
+
 status=0
 
 if [[ $TESTFILE_PATH == *.jmx ]]
